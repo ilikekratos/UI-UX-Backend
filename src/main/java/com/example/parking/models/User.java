@@ -6,7 +6,7 @@ import org.springframework.lang.NonNull;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity
-@Table(name="user")
+@Table(name="users")
 @Getter
 @Setter
 @ToString

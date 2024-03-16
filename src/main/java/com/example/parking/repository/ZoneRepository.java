@@ -6,5 +6,5 @@ import com.example.parking.models.Zone;
 import java.util.List;
 
 public interface ZoneRepository extends RepositoryBase<Zone,Long>{
-    List<Zone> findByCompany_idIs(String company_id);
+    //List<Zone> findAllByCompany_idIs(String company_id);
 }
