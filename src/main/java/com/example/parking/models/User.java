@@ -3,6 +3,7 @@ package com.example.parking.models;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.lang.NonNull;
+import org.springframework.stereotype.Component;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity
@@ -10,11 +11,11 @@ import org.springframework.lang.NonNull;
 @Getter
 @Setter
 @ToString
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Data
 public class User extends BaseEntity<Long> {
-    @Column(name="username")
+    @Column(name="username",unique = true)
     @NonNull
     private String username;
     @Column(name="password")

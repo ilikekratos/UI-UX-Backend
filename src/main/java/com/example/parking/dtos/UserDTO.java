@@ -9,7 +9,8 @@ import java.io.Serializable;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
-
+@Getter
+@Setter
 public class UserDTO extends BaseDTO<Long>{
     private String username;
     private String password;
