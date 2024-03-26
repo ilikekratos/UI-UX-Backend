@@ -7,6 +7,6 @@ import lombok.*;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
-public class CompanyDTO extends BaseDTO<Long>{
-    private String company_name;
+public class LotDTO extends BaseDTO<Long>{
+    private String lot_name;
 }

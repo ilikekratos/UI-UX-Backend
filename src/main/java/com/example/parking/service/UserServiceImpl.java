@@ -15,8 +15,12 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public void addUser(String username,String password,Boolean admin,Long company_id){
-        var newUser=new User(username,password,admin,company_id);
+    public void addUser(String username,String password,Boolean admin){
+        var newUser=new User(username,password,admin);
         userRepository.save(newUser);
+    }
+    @Override
+    public boolean checkUsername(String username){
+        return userRepository.existsUserByUsername(username);
     }
 }

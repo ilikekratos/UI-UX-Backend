@@ -23,7 +23,4 @@ public class User extends BaseEntity<Long> {
     private String password;
     @Column(name="admin")
     private boolean admin;
-    @Column(name="company_id")
-    @NonNull
-    private Long company_id;
 }

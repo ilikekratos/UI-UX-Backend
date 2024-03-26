@@ -7,15 +7,15 @@ import lombok.*;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity
-@Table(name="company")
+@Table(name="lot")
 @Getter
 @Setter
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class Company extends BaseEntity<Long>{
-    @Column(name = "company_name")
+public class Lot extends BaseEntity<Long>{
+    @Column(name = "lot_name")
     @NonNull
-    private String company_name;
+    private String lot_name;
 }

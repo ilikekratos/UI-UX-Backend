@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserRepository extends RepositoryBase<User,Long>{
     User findByPasswordIs(String password);
+    Boolean existsUserByUsername(String username);
 }

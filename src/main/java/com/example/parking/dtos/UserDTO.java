@@ -15,5 +15,4 @@ public class UserDTO extends BaseDTO<Long>{
     private String username;
     private String password;
     private boolean admin;
-    private Long company_id;
 }
