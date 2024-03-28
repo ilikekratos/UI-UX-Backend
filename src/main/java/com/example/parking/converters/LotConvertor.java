@@ -14,7 +14,7 @@ public class LotConvertor extends BaseConvertor<Long, Lot, LotDTO>{
 
     @Override
     public LotDTO convertModelToDto(Lot lot) {
-        var lotDTO= new LotDTO(lot.getLot_name(), lot.getLatitude(), lot.getLongitude(),null);
+        var lotDTO= new LotDTO(lot.getLotName(), lot.getLatitude(), lot.getLongitude());
         lotDTO.setId(lot.getId());
         return lotDTO;
     }

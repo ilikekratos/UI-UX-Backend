@@ -3,6 +3,7 @@ package com.example.parking.controller;
 import com.example.parking.config.JwtConfig;
 import com.example.parking.converters.LotConvertor;
 import com.example.parking.dtos.LotDTO;
+import com.example.parking.dtos.RequestWrapper;
 import com.example.parking.service.LotService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 public class LotController {
@@ -35,13 +35,13 @@ public class LotController {
         return ResponseEntity.status(HttpStatus.OK).body(temp);
     }
     @PostMapping(value = "lot/add")
-    public ResponseEntity<String> addLot(@RequestBody LotDTO lotDTO){
-        if(verifyToken(lotDTO.getToken())){
-        var lot= lotConverter.convertDtoToModel(lotDTO);
-        if(lotService.checkLot_name(lot.getLot_name())){
+    public ResponseEntity<String> addLot(@RequestBody RequestWrapper<LotDTO> requestWrapper){
+        if(verifyToken(requestWrapper.getTokenDTO().getToken())){
+        var lot= lotConverter.convertDtoToModel(requestWrapper.getDto());
+        if(lotService.checkLot_name(lot.getLotName())){
             return ResponseEntity.status(HttpStatus.CONFLICT).body("Lot Exists");
         }
-        lotService.addLot(lot.getLot_name(),lot.getLatitude(),lot.getLongitude());
+        lotService.addLot(lot.getLotName(),lot.getLatitude(),lot.getLongitude());
         return ResponseEntity.status(HttpStatus.CREATED).body("Good");
         }
         return ResponseEntity.status(HttpStatus.CONFLICT).body("Token Issue");

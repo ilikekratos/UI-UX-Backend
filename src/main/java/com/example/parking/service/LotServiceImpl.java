@@ -23,7 +23,7 @@ public class LotServiceImpl implements LotService{
     @Override
     public void addLot(String lot_name, double latitude, double longitude) {
 
-        if(!lotRepository.existsLotByLot_nameIs(lot_name)){
+        if(!lotRepository.existsLotByLotNameIs(lot_name)){
             var lot = new Lot(lot_name,latitude,longitude);
             lotRepository.save(lot);
         }
@@ -31,6 +31,6 @@ public class LotServiceImpl implements LotService{
 
     @Override
     public boolean checkLot_name(String name) {
-        return(lotRepository.existsLotByLot_nameIs(name));
+        return(lotRepository.existsLotByLotNameIs(name));
     }
 }

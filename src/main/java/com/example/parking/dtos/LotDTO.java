@@ -11,5 +11,4 @@ public class LotDTO extends BaseDTO<Long>{
     private String lot_name;
     private double latitude;
     private double longitude;
-    private String token;
 }

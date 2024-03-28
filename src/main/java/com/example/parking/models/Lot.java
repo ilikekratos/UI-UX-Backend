@@ -15,9 +15,9 @@ import lombok.*;
 @AllArgsConstructor
 @Data
 public class Lot extends BaseEntity<Long>{
-    @Column(name = "lot_name")
+    @Column(name = "lotName")
     @NonNull
-    private String lot_name;
+    private String lotName;
     @Column(name = "latitude")
     private double latitude;
     @Column(name = "longitude")

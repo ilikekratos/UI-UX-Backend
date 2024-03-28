@@ -8,5 +8,5 @@ import java.util.List;
 @Repository
 public interface LotRepository extends RepositoryBase<Lot,Long>{
     List<Lot> findAllByIdIsNotNull();
-    boolean existsLotByLot_nameIs(String name);
+    boolean existsLotByLotNameIs(String name);
 }
