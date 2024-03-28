@@ -18,4 +18,8 @@ public class Lot extends BaseEntity<Long>{
     @Column(name = "lot_name")
     @NonNull
     private String lot_name;
+    @Column(name = "latitude")
+    private double latitude;
+    @Column(name = "longitude")
+    private double longitude;
 }

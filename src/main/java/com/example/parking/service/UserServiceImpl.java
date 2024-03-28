@@ -3,6 +3,7 @@ package com.example.parking.service;
 import com.example.parking.config.JwtConfig;
 import com.example.parking.models.User;
 import com.example.parking.repository.UserRepository;
+import jakarta.validation.constraints.Null;
 import org.mindrot.jbcrypt.BCrypt;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,8 +24,10 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public void addUser(String username,String password,Boolean admin){
+        if(!checkUsername(username)){
         var newUser=new User(username,password,admin);
         userRepository.save(newUser);
+        }
     }
     @Override
     public boolean checkUsername(String username){
@@ -39,5 +42,10 @@ public class UserServiceImpl implements UserService{
             return BCrypt.checkpw(password,user.getPassword());
         }
         return false;
+    }
+
+    @Override
+    public Optional<User> returnUser(String username) {
+        return userRepository.findByUsername(username);
     }
 }

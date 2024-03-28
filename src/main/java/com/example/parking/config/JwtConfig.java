@@ -1,17 +1,11 @@
 package com.example.parking.config;
 
-import com.example.parking.controller.UserController;
 import com.example.parking.dtos.UserDTO;
 import io.jsonwebtoken.JwtParser;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.security.Keys;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
-
 import javax.crypto.SecretKey;
 import java.security.Key;
 import java.util.*;
@@ -19,7 +13,7 @@ import java.util.*;
 import static io.jsonwebtoken.Jwts.SIG.HS512;
 
 
-@Service
+@Component
 public class JwtConfig {
     public static final Logger logger = LoggerFactory.getLogger(JwtConfig.class);
     private static final long EXPIRATION_TIME = 1000*60*60;
