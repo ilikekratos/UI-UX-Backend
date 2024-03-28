@@ -1,9 +1,12 @@
 package com.example.parking.service;
 
+import com.example.parking.exceptions.NotFoundException;
 import com.example.parking.models.Zone;
 
 import java.util.List;
 
 public interface ZoneService {
-    List<Zone> getAll(Long id);
+    List<Zone> getAllByLotId(Long id) throws NotFoundException;
+    boolean deleteZone(Long id) throws NotFoundException;
+    boolean addZone(Long lotId,Long length,Long width);
 }

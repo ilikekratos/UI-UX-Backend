@@ -3,7 +3,9 @@ package com.example.parking.models;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Null;
 import lombok.*;
+import org.springframework.lang.Nullable;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity
@@ -15,8 +17,8 @@ import lombok.*;
 @AllArgsConstructor
 @Data
 public class Spot extends BaseEntity<Long>{
-    @Column(name = "occupied")
-    private boolean occupied;
+    @Column(name = "occupiedId")
+    private Long occupiedId;
     @Column(name = "zoneId")
     private Long zoneId;
 }

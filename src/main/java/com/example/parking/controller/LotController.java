@@ -18,22 +18,17 @@ import java.util.List;
 @RestController
 public class LotController {
     public static final Logger logger = LoggerFactory.getLogger(LotController.class);
-    private final JwtConfig jwtConfig;
     @Autowired
     private LotService lotService;
     @Autowired
-    LotConvertor lotConverter;
-    @Autowired
-    public LotController(JwtConfig jwtConfig) {
-        this.jwtConfig = jwtConfig;
-    }
+    private LotConvertor lotConverter;
     @GetMapping(value = "lot/getAll")
     public ResponseEntity<List<LotDTO>> getAllLots(@RequestBody TokenDTO tokenDTO){
         if(verifyToken(tokenDTO.getToken())) {
             List<LotDTO> temp = lotService.getAll().stream().map(lot -> lotConverter.convertModelToDto(lot)).toList();
             return ResponseEntity.status(HttpStatus.OK).body(temp);
         }
-        return ResponseEntity.status(HttpStatus.CONFLICT).body(null);
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
     }
     @PostMapping(value = "lot/add")
     public ResponseEntity<String> addLot(@RequestBody RequestWrapper<LotDTO> requestWrapper){
@@ -45,7 +40,7 @@ public class LotController {
         lotService.addLot(lot.getLotName(),lot.getLatitude(),lot.getLongitude());
         return ResponseEntity.status(HttpStatus.CREATED).body("Good");
         }
-        return ResponseEntity.status(HttpStatus.CONFLICT).body("Token Issue");
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token Issue");
     }
     @DeleteMapping(value = "lot/delete")
     public ResponseEntity<String> deleteLot(@RequestBody RequestWrapper<Long> requestWrapper){
@@ -55,7 +50,7 @@ public class LotController {
             }
             return ResponseEntity.status(HttpStatus.CREATED).body("Good");
         }
-        return ResponseEntity.status(HttpStatus.CONFLICT).body("Token Issue");
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token Issue");
     }
     boolean verifyToken(String token){
         return JwtConfig.verifyToken(token);

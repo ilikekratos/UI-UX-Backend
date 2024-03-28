@@ -20,16 +20,10 @@ import java.util.Optional;
 @RestController
 public class UserController {
     public static final Logger logger = LoggerFactory.getLogger(UserController.class);
-    private final JwtConfig jwtConfig;
     @Autowired
     private UserService userService;
     @Autowired
-    UserConverter userConverter;
-    @Autowired
-    public UserController(JwtConfig jwtConfig) {
-        this.jwtConfig = jwtConfig;
-    }
-
+    private UserConverter userConverter;
     @RequestMapping(value = "/user/register",method = RequestMethod.POST)
     public ResponseEntity<String> addUser(@RequestBody UserDTO userDTO){
         logger.trace("register - entered");

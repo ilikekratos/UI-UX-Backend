@@ -9,6 +9,6 @@ import lombok.*;
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
 public class SpotDTO extends BaseDTO<Long>{
-    private boolean occupied;
+    private Long occupiedId;
     private Long zoneId;
 }
