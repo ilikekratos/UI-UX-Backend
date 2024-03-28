@@ -17,6 +17,6 @@ import lombok.*;
 public class Spot extends BaseEntity<Long>{
     @Column(name = "occupied")
     private boolean occupied;
-    @Column(name = "zone_id")
-    private Long zone_id;
+    @Column(name = "zoneId")
+    private Long zoneId;
 }

@@ -9,4 +9,6 @@ import java.util.List;
 public interface LotRepository extends RepositoryBase<Lot,Long>{
     List<Lot> findAllByIdIsNotNull();
     boolean existsLotByLotNameIs(String name);
+
+    boolean existsLotByIdIs(Long id);
 }

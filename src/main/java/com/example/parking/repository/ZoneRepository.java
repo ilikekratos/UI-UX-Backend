@@ -7,5 +7,6 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 @Repository
 public interface ZoneRepository extends RepositoryBase<Zone,Long>{
-    //List<Zone> findAllByCompany_idIs(String company_id);
+    List<Zone> findAllByLotIdIs(Long lotId);
+    void deleteZonesByLotIdIs(Long id);
 }

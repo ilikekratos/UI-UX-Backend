@@ -19,9 +19,9 @@ import java.util.List;
 @AllArgsConstructor
 @Data
 public class Zone extends BaseEntity<Long>{
-    @Column(name="lot_id")
+    @Column(name="lotId")
     @NonNull
-    private Long lot_id;
+    private Long lotId;
     @Column(name="length")
     @NonNull
     @Min(value=1,message = "Length min 1")

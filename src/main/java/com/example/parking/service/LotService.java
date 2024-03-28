@@ -8,4 +8,5 @@ public interface LotService {
     List<Lot> getAll();
     void addLot(String lot_name,double latitude,double longitude);
     boolean checkLot_name(String name);
+    boolean deleteLot(Long id);
 }
