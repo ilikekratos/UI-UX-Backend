@@ -1,13 +1,10 @@
 package com.example.parking.service;
 
-import com.example.parking.config.JwtConfig;
 import com.example.parking.models.User;
 import com.example.parking.repository.UserRepository;
-import jakarta.validation.constraints.Null;
 import org.mindrot.jbcrypt.BCrypt;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;

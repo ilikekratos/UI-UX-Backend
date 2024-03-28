@@ -1,7 +1,6 @@
 package com.example.parking.repository;
 
 import com.example.parking.models.User;
-import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;

@@ -2,7 +2,6 @@ package com.example.parking.controller;
 
 import com.example.parking.config.JwtConfig;
 import com.example.parking.converters.LotConvertor;
-import com.example.parking.converters.UserConverter;
 import com.example.parking.dtos.LotDTO;
 import com.example.parking.service.LotService;
 import org.slf4j.Logger;
