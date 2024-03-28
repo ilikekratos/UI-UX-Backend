@@ -1,6 +1,5 @@
 package com.example.parking.repository;
 
-import com.example.parking.models.User;
 import com.example.parking.models.Zone;
 import org.springframework.stereotype.Repository;
 
