@@ -9,7 +9,7 @@ public class LotConvertor extends BaseConvertor<Long, Lot, LotDTO>{
 
     @Override
     public Lot convertDtoToModel(LotDTO dto) {
-        return new Lot(dto.getLot_name(), dto.getLatitude(), dto.getLongitude());
+        return new Lot(dto.getLotName(), dto.getLatitude(), dto.getLongitude());
     }
 
     @Override

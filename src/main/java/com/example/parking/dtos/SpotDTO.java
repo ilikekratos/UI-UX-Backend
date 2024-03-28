@@ -10,5 +10,5 @@ import lombok.*;
 @ToString(callSuper = true)
 public class SpotDTO extends BaseDTO<Long>{
     private boolean occupied;
-    private Long zone_id;
+    private Long zoneId;
 }

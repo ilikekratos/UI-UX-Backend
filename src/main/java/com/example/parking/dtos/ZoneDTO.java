@@ -9,7 +9,7 @@ import lombok.*;
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
 public class ZoneDTO extends BaseDTO<Long>{
-    private Long lot_id;
+    private Long lotId;
     private Long length;
     private Long width;
 }

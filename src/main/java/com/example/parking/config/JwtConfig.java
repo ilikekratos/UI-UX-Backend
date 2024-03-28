@@ -41,9 +41,3 @@ public class JwtConfig {
         return false;}
     }
 }
-//private static String SECRET;
-
-//    @Value("${jwt.secret}")
-//    public void setSECRET(String name){
-//        JwtConfig.SECRET=name;
-//    }
