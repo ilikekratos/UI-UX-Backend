@@ -47,7 +47,7 @@ public class ZoneController {
 
     }
     @DeleteMapping(value = "zone/delete")
-    public ResponseEntity<String> deleteZone(@RequestBody RequestWrapper<Long> requestWrapper){
+    public ResponseEntity<String> deleteZone(@RequestBody RequestWrapper<Long> requestWrapper) throws NotFoundException{
         if(verifyToken(requestWrapper.getTokenDTO().getToken())) {
             try{
                 if(zoneService.deleteZone(requestWrapper.getDto())){

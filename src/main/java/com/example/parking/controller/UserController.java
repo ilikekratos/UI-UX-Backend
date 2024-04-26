@@ -37,9 +37,8 @@ public class UserController {
         logger.trace("register - successful");
         return ResponseEntity.status(HttpStatus.CREATED).body("Good");
     }
-    @GetMapping(value="/user/login")
+    @PostMapping(value="/user/login")
     public ResponseEntity<LoginResponseDTO> login(@RequestBody LoginDTO loginDTO){
-        logger.trace("login - entered");
         if(userService.checkLogin(loginDTO.getUsername(),loginDTO.getPassword())){
             Optional<User> optionalUser=userService.returnUser(loginDTO.getUsername());
             if(optionalUser.isPresent()){

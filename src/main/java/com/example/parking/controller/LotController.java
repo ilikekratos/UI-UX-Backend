@@ -23,17 +23,17 @@ public class LotController {
     @Autowired
     private LotConvertor lotConverter;
     @GetMapping(value = "lot/getAll")
-    public ResponseEntity<List<LotDTO>> getAllLots(@RequestBody TokenDTO tokenDTO){
-        if(verifyToken(tokenDTO.getToken())) {
+    public ResponseEntity<List<LotDTO>> getAllLots(@RequestHeader("Authorization") String token){
+        if(verifyToken(token)) {
             List<LotDTO> temp = lotService.getAll().stream().map(lot -> lotConverter.convertModelToDto(lot)).toList();
             return ResponseEntity.status(HttpStatus.OK).body(temp);
         }
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
     }
     @PostMapping(value = "lot/add")
-    public ResponseEntity<String> addLot(@RequestBody RequestWrapper<LotDTO> requestWrapper){
-        if(verifyToken(requestWrapper.getTokenDTO().getToken())){
-        var lot= lotConverter.convertDtoToModel(requestWrapper.getDto());
+    public ResponseEntity<String> addLot(@RequestHeader("Authorization") String token, @RequestBody LotDTO lotDTO){
+        if(verifyToken(token)){
+        var lot= lotConverter.convertDtoToModel(lotDTO);
         if(lotService.checkLot_name(lot.getLotName())){
             return ResponseEntity.status(HttpStatus.CONFLICT).body("Lot Exists");
         }
@@ -43,12 +43,12 @@ public class LotController {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token Issue");
     }
     @DeleteMapping(value = "lot/delete")
-    public ResponseEntity<String> deleteLot(@RequestBody RequestWrapper<Long> requestWrapper){
-        if(verifyToken(requestWrapper.getTokenDTO().getToken())){
-            if(!lotService.deleteLot(requestWrapper.getDto())){
+    public ResponseEntity<String> deleteLot(@RequestHeader("Authorization") String token,@RequestBody Long id ){
+        if(verifyToken(token)){
+            if(!lotService.deleteLot(id)){
                 return ResponseEntity.status(HttpStatus.CONFLICT).body("Lot doesn't exist");
             }
-            return ResponseEntity.status(HttpStatus.CREATED).body("Good");
+            return ResponseEntity.status(HttpStatus.OK).body("Good");
         }
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token Issue");
     }
