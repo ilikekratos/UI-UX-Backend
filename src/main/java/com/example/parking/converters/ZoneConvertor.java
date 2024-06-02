@@ -9,12 +9,12 @@ import org.springframework.stereotype.Component;
 public class ZoneConvertor extends BaseConvertor<Long, Zone, ZoneDTO>{
     @Override
     public Zone convertDtoToModel(ZoneDTO dto) {
-        return new Zone(dto.getLotId(), dto.getLength(),dto.getWidth());
+        return new Zone(dto.getLotId(),dto.getZoneName());
     }
 
     @Override
     public ZoneDTO convertModelToDto(Zone zone) {
-        var zoneDto= new ZoneDTO(zone.getLotId(), zone.getLength(),zone.getWidth());
+        var zoneDto= new ZoneDTO(zone.getLotId(), zone.getZoneName());
         zoneDto.setId(zone.getId());
         return zoneDto;
     }

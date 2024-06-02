@@ -10,6 +10,5 @@ import lombok.*;
 @ToString(callSuper = true)
 public class ZoneDTO extends BaseDTO<Long>{
     private Long lotId;
-    private Long length;
-    private Long width;
+    private String zoneName;
 }

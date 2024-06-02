@@ -9,4 +9,6 @@ public interface LotService {
     void addLot(String lot_name,double latitude,double longitude);
     boolean checkLot_name(String name);
     boolean deleteLot(Long id);
+
+    boolean editLot(Long id,String lotName);
 }

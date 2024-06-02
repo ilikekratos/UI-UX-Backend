@@ -5,6 +5,7 @@ import com.example.parking.models.Lot;
 import com.example.parking.repository.LotRepository;
 import com.example.parking.repository.SpotRepository;
 import com.example.parking.repository.ZoneRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -35,6 +36,7 @@ public class LotServiceImpl implements LotService{
         }
     }
 
+
     @Override
     public boolean checkLot_name(String name) {
         return(lotRepository.existsLotByLotNameIs(name));
@@ -50,6 +52,17 @@ public class LotServiceImpl implements LotService{
             zoneRepository.deleteZonesByLotIdIs(id);
             //Delete lot
             lotRepository.deleteById(id);
+            return true;
+        }
+        return false;
+    }
+    @Override
+    public boolean editLot(Long id,String lotName) {
+        if(lotRepository.existsLotByIdIs(id)){
+            int updatedRows = lotRepository.updateLotNameById(id, lotName);
+            if (updatedRows == 0) {
+                throw new EntityNotFoundException("Lot with id " + id + " not found.");
+            }
             return true;
         }
         return false;

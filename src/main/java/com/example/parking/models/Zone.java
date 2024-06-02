@@ -20,14 +20,7 @@ public class Zone extends BaseEntity<Long>{
     @Column(name="lotId")
     @NonNull
     private Long lotId;
-    @Column(name="length")
+    @Column(name="zoneName")
     @NonNull
-    @Min(value=1,message = "Length min 1")
-    @Max(value=4,message = "Length max 4")
-    private Long length;
-    @Column(name="width")
-    @NonNull
-    @Min(value=1,message = "Length min 1")
-    @Max(value=4,message = "Length max 4")
-    private Long width;
+    private String zoneName;
 }

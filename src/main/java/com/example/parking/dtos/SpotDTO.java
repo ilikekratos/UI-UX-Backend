@@ -2,6 +2,7 @@ package com.example.parking.dtos;
 
 import jakarta.persistence.Column;
 import lombok.*;
+import org.springframework.lang.Nullable;
 
 @NoArgsConstructor
 @AllArgsConstructor

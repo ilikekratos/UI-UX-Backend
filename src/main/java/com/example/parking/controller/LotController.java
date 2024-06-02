@@ -6,6 +6,8 @@ import com.example.parking.dtos.LotDTO;
 import com.example.parking.dtos.RequestWrapper;
 import com.example.parking.dtos.TokenDTO;
 import com.example.parking.service.LotService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class LotController {
@@ -39,6 +42,20 @@ public class LotController {
         }
         lotService.addLot(lot.getLotName(),lot.getLatitude(),lot.getLongitude());
         return ResponseEntity.status(HttpStatus.CREATED).body("Good");
+        }
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token Issue");
+    }
+    @PutMapping(value = "lot/edit/{id}")
+    public ResponseEntity<String> editLotName(@RequestHeader("Authorization") String token,@PathVariable Long id, @RequestBody String jsonBody) throws JsonProcessingException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        Map<String, String> requestMap = objectMapper.readValue(jsonBody, Map.class);
+        String newLotName = requestMap.get("lotName");
+        if(verifyToken(token)){
+            if(lotService.checkLot_name(newLotName)){
+                return ResponseEntity.status(HttpStatus.CONFLICT).body("Lot Exists");
+            }
+            lotService.editLot(id,newLotName);
+            return ResponseEntity.status(HttpStatus.CREATED).body("Good");
         }
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token Issue");
     }

@@ -2,10 +2,13 @@ package com.example.parking.service;
 
 import com.example.parking.exceptions.NotFoundException;
 import com.example.parking.models.Spot;
+import com.example.parking.models.User;
 import com.example.parking.models.Zone;
 import com.example.parking.repository.SpotRepository;
+import com.example.parking.repository.UserRepository;
 import com.example.parking.repository.ZoneRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -14,12 +17,15 @@ import java.util.Optional;
 public class SpotServiceImpl implements SpotService{
     private final SpotRepository spotRepository;
     private final ZoneRepository zoneRepository;
+    private final UserRepository userRepository;
 
-    public SpotServiceImpl(SpotRepository spotRepository, ZoneRepository zoneRepository) {
+    public SpotServiceImpl(SpotRepository spotRepository, ZoneRepository zoneRepository, UserRepository userRepository) {
         this.spotRepository = spotRepository;
         this.zoneRepository = zoneRepository;
+        this.userRepository = userRepository;
     }
     @Override
+    @Transactional
     public boolean deleteSpot(Long id) throws NotFoundException {
         if(!spotRepository.existsSpotByIdIs(id)){
             throw new NotFoundException("Zone not found");
@@ -32,10 +38,31 @@ public class SpotServiceImpl implements SpotService{
     public boolean addSpot(Long zoneId) {
         Optional<Zone> optionalZone = zoneRepository.findZoneByIdIs(zoneId);
         if (optionalZone.isPresent()) {
-            Zone zone = optionalZone.get();
-            if (spotRepository.findAllByZoneIdIs(zoneId).toArray().length < zone.getLength() * zone.getWidth()) {
-                Spot spot = new Spot(null, zoneId);
-                spotRepository.save(spot);
+            Spot spot = new Spot((long) -1, zoneId);
+            spotRepository.save(spot);
+            return true;
+
+        }
+        return false;
+    }
+    @Override
+    public boolean updateSpot(String username, Long spotId) {
+
+        Optional<Spot> optionalSpot=spotRepository.findById(spotId);
+        Optional<User> optionalUser=userRepository.findByUsername(username);
+        if(optionalSpot.isPresent() && optionalUser.isPresent()){
+            spotRepository.updateSpotOccupiedIdById(spotId,optionalUser.get().getId());
+            return true;
+        }
+        return false;
+    }
+    @Override
+    public boolean clearSpotByUser(String username){
+        Optional<User> optionalUser=userRepository.findByUsername(username);
+        if(optionalUser.isPresent() ){
+            Optional<Spot> optionalSpot = spotRepository.findByOccupiedIdIs(optionalUser.get().getId());
+            if(optionalSpot.isPresent()){
+                spotRepository.updateSpotOccupiedIdById(optionalSpot.get().getId(),(long)-1);
                 return true;
             }
             return false;
@@ -43,24 +70,21 @@ public class SpotServiceImpl implements SpotService{
         return false;
     }
     @Override
-    public boolean updateSpot(Long occupiedId,Long spotId) {
-        Optional<Spot> optionalSpot=spotRepository.findById(spotId);
-        if(optionalSpot.isPresent()){
-            Spot spot=optionalSpot.get();
-            spot.setOccupiedId(occupiedId);
-            spotRepository.save(spot);
-            return true;
+    public boolean existSpotOccupied(String username){
+        Optional<User> optionalUser=userRepository.findByUsername(username);
+        if(optionalUser.isPresent() ){
+
+            Optional<Spot> optionalSpot = spotRepository.findByOccupiedIdIs(optionalUser.get().getId());
+            return optionalSpot.isPresent();
         }
         return false;
     }
-
     @Override
-    public boolean clearSpot(Long occupiedId, Long spotId) {
+    @Transactional
+    public boolean clearSpot( Long spotId) {
         Optional<Spot> optionalSpot=spotRepository.findById(spotId);
         if(optionalSpot.isPresent()){
-            Spot spot=optionalSpot.get();
-            spot.setOccupiedId(null);
-            spotRepository.save(spot);
+            spotRepository.updateSpotOccupiedIdById(spotId,(long)-1);
             return true;
         }
         return false;
